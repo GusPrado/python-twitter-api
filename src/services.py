@@ -40,8 +40,7 @@ def get_trends() -> List[Dict[str, Any]]:
 
 def save_trends() -> None:
     """Get trends topics and save on MongoDB."""
-    auth = tweepy.OAuthHandler(consumer_key=CONSUMER_KEY, consumer_secret=CONSUMER_SECRET)
-    auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+    auth = tweepy.Client(consumer_key=CONSUMER_KEY, consumer_secret=CONSUMER_SECRET, access_token=ACCESS_TOKEN, access_token_secret=ACCESS_TOKEN_SECRET)
 
     api = tweepy.API(auth)
 
