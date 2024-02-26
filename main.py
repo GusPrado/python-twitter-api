@@ -18,12 +18,8 @@ app = FastAPI()
 def get_trends_route():
     trends = get_trends(woe_id=BRAZIL_WOE_ID)
 
-    return trends[0]['trends']
+    return trends
 
 if __name__ == "__main__":
-
-    if not trends:
-        pass
-        #save_trends()
 
     uvicorn.run(app, host="0.0.0.0", port=8000)

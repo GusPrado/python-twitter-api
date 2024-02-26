@@ -11,7 +11,7 @@ def get_trends(woe_id: int) -> List[Dict[str, Any]]:
     Returns:
         List[Dict[str, Any]]: Trends list.
     """
-    
+
     auth = tweepy.Client(consumer_key='5THZPPUSr4iGGzYggbYXTUcOZ', consumer_secret='eJEtAwFrHQVmUuyo7fWBNa3N9dUv1bwQzz59pP5ajkeGRTyDjv', access_token='140272278-vgIp637jceMX7Vrh7LFvAdluRvSYAs3S2mtZlIJ2', access_token_secret='OYXxcGYxTlIMOCquAV14sSzCsQnssjKOoZfYfJqb666zm')
 
     api = tweepy.API(auth)
@@ -21,4 +21,4 @@ def get_trends(woe_id: int) -> List[Dict[str, Any]]:
     # for tweet in trends:
     #    print(tweet)
 
-    return [trend for trend in trends]
+    return trends[0]['trends']
