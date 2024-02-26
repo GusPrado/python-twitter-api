@@ -1,32 +1,26 @@
-from secrets import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
-
+from typing import List
 import uvicorn
-import tweepy
+
 from pymongo import MongoClient
 from fastapi import FastAPI
+from pydantic import BaseModel
+from src.services import get_trends
+
+class TrendItem(BaseModel):
+    name: str
+    url: str
 
 BRAZIL_WOE_ID = 23424768
 
-
-
-def get_trends(woe_id: int):
-    auth = tweepy.Client(consumer_key='5THZPPUSr4iGGzYggbYXTUcOZ', consumer_secret='eJEtAwFrHQVmUuyo7fWBNa3N9dUv1bwQzz59pP5ajkeGRTyDjv', access_token='140272278-vgIp637jceMX7Vrh7LFvAdluRvSYAs3S2mtZlIJ2', access_token_secret='OYXxcGYxTlIMOCquAV14sSzCsQnssjKOoZfYfJqb666zm')
-
-    api = tweepy.API(auth)
-    
-    trends = api.trends_place()
-
-    for tweet in trends:
-        print(tweet)
-
 app = FastAPI()
 
-@app.get('/trends')
+@app.get('/trends', response_model=List[TrendItem])
 def get_trends_route():
-    pass
+    trends = get_trends(woe_id=BRAZIL_WOE_ID)
+
+    return trends[0]['trends']
 
 if __name__ == "__main__":
-    trends = get_trends()
 
     if not trends:
         pass
